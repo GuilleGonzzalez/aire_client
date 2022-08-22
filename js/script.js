@@ -1,24 +1,33 @@
+const aire_base_url = "http://192.168.0.48/"
 
 document.getElementById('btn_on').onclick = function (e) {
-	send2("on");
+	request("on");
 }
 
 document.getElementById('btn_off').onclick = function (e) {
-	send2("off");
+	request("off");
 }
 
-function send(action) {
-	const http = new XMLHttpRequest();
-	const url='http://192.168.0.48/' + action;
-	http.open("GET", url);
-	http.send();
-	http.onreadystatechange = (e) => {
-	  console.log("R: " + http.responseText)
-	}
+document.getElementById('btn_1').onclick = function (e) {
+	request("f1");
 }
 
-function send2(action) {
-	fetch("http://192.168.0.48/" + action)
+document.getElementById('btn_2').onclick = function (e) {
+	request("f2");
+}
+
+document.getElementById('btn_3').onclick = function (e) {
+	request("f3");
+}
+
+function request(a) {
+	fetch(aire_base_url + a, {
+		method: 'GET',
+		headers: new Headers({
+			'Content-Type': 'application/json',
+			'Access-Control-Allow-Origin': '*',
+		}),
+	})
 		.then(
 			response => response.text()
 		).then(

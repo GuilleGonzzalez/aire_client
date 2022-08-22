@@ -1,4 +1,7 @@
 const aire_base_url = "http://192.168.0.48/"
+let timer = 0;
+let tmr = 0;
+let active_timer = false;
 
 document.getElementById('btn_on').onclick = function (e) {
 	request("on");
@@ -18,6 +21,51 @@ document.getElementById('btn_2').onclick = function (e) {
 
 document.getElementById('btn_3').onclick = function (e) {
 	request("f3");
+}
+
+document.getElementById('btn_timer_m').onclick = function (e) {
+	if (timer >= 10) {
+		timer -= 10;
+	}
+	set_timer_text(timer);
+}
+
+document.getElementById('btn_timer_p').onclick = function (e) {
+	timer += 10;
+	set_timer_text(timer);
+}
+
+document.getElementById('btn_timer_start').onclick = function (e) {
+	if (!active_timer) {
+		tmr = window.setInterval(update_timer, 1000);
+	}
+	active_timer = true;
+}
+
+function update_timer() {
+	timer--;
+	set_timer_text(timer);
+	if (timer == 0) {
+		active_timer = false;
+		clearInterval(tmr);
+		request("off");
+	}
+}
+
+function set_timer_text(v) {
+	let h = Math.floor((v % (60 * 60 * 24)) / (60 * 60));
+	let m = Math.floor((v % (60 * 60)) / (60));
+	let s = Math.floor(v % 60);
+	if (h < 10) {
+		h = "0" + h;
+	}
+	if (m < 10) {
+		m = "0" + m;
+	}
+	if (s < 10) {
+		s = "0" + s;
+	}
+	document.getElementById("txt_timer").innerHTML = h + ":" + m + ":" + s;
 }
 
 function request(a) {

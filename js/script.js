@@ -1,5 +1,6 @@
 const aire_base_url = "http://192.168.0.48/"
 let timer = 0;
+let temp_set = 20;
 let tmr = 0;
 let active_timer = false;
 
@@ -9,6 +10,10 @@ document.getElementById('btn_on').onclick = function (e) {
 
 document.getElementById('btn_off').onclick = function (e) {
 	request("off");
+}
+
+document.getElementById('btn_1').onclick = function (e) {
+	request("fauto");
 }
 
 document.getElementById('btn_1').onclick = function (e) {
@@ -33,6 +38,16 @@ document.getElementById('btn_timer_m').onclick = function (e) {
 document.getElementById('btn_timer_p').onclick = function (e) {
 	timer += 10;
 	set_timer_text(timer);
+}
+
+document.getElementById('btn_temp_set_m').onclick = function (e) {
+	temp_set--;
+	set_temp_set_text(temp_set);
+}
+
+document.getElementById('btn_temp_set_p').onclick = function (e) {
+	temp_set++;
+	set_temp_set_text(temp_set);
 }
 
 document.getElementById('btn_timer_start').onclick = function (e) {
@@ -64,6 +79,11 @@ function set_timer_text(v) {
 	document.getElementById("txt_timer").innerHTML = h + ":" + m + ":" + s;
 }
 
+function set_temp_set_text(t) {
+	document.getElementById("txt_temp_set").innerHTML = t;
+	request("t" + temp_set);
+}
+
 function leading_zeroes(num, len) {
 	num = num.toString();
 	while (num.length < len) num = "0" + num;
@@ -72,10 +92,12 @@ function leading_zeroes(num, len) {
 
 function request(a) {
 	fetch(aire_base_url + a, {
-		method: 'GET',
+		method: 'POST',
 		headers: new Headers({
-			'Content-Type': 'application/json',
 			'Access-Control-Allow-Origin': '*',
+			'Access-Control-Max-Age': '600',
+			'Access-Control-Allow-Methods': 'PUT,POST,GET,OPTIONS',
+			'Access-Control-Allow-Headers': '*',
 		}),
 	})
 		.then(

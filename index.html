@@ -37,21 +37,27 @@
   </header>
 
   <main>
-    <div class="mb-5 btn-group">
-      <a id="btn_on" href="#" class="btn btn-success btn-lg">On</a>
-      <a id="btn_off" href="#" class="btn btn-danger btn-lg">Off</a>
+    <h1 id="txt_temp" class="display-5">- ºC</h1>
+    <div class="btn-group d-flex mb-2">
+      <button type="button" class="btn btn-success" id="btn_on">On</button>
+      <button type="button" class="btn btn-danger" id="btn_off">Off</button>
     </div>
-    <div class="mb-5">
-      <a id="btn_1" href="#" class="btn btn-primary btn-lg px-4">1</a>
-      <a id="btn_2" href="#" class="btn btn-primary btn-lg px-4">2</a>
-      <a id="btn_3" href="#" class="btn btn-primary btn-lg px-4">3</a>
+    <div class="btn-group d-flex mb-2">
+      <button type="button" class="btn btn-primary" id="btn_auto">AUTO</button>
+      <button type="button" class="btn btn-primary" id="btn_1">1</button>
+      <button type="button" class="btn btn-primary" id="btn_2">2</button>
+      <button type="button" class="btn btn-primary" id="btn_3">3</button>
     </div>
-
-    <div class="mb-5">
-      <a id="btn_timer_m" href="#" class="btn btn-dark btn-lg px-4">-</a>
-      <a id="btn_timer_p" href="#" class="btn btn-dark btn-lg px-4">+</a>
-      <a id="btn_timer_start" href="#" class="btn btn-dark btn-lg px-4">Start timer</a>
-      <h1 id="txt_timer" class="display-5">00:00:00</h1>
+    <h1 id="txt_timer" class="display-5">00:00:00</h1>
+    <div class="mb-2">
+      <button type="button" class="btn btn-dark" id="btn_timer_m">-</button>
+      <button type="button" class="btn btn-dark" id="btn_timer_p">+</button>
+      <button type="button" class="btn btn-dark" id="btn_timer_start">Start timer</button>
+    </div>
+    <h1 class="display-5">Set: <span id="txt_temp_set">-</span> ºC</h1>
+    <div class="mb-2">
+      <button type="button" class="btn btn-dark" id="btn_temp_set_m">-</button>
+      <button type="button" class="btn btn-dark" id="btn_temp_set_p">+</button>
     </div>
     <hr class="col-3 col-md-2 mb-5">
   </main>

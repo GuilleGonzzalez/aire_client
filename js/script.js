@@ -56,16 +56,18 @@ function set_timer_text(v) {
 	let h = Math.floor((v % (60 * 60 * 24)) / (60 * 60));
 	let m = Math.floor((v % (60 * 60)) / (60));
 	let s = Math.floor(v % 60);
-	if (h < 10) {
-		h = "0" + h;
-	}
-	if (m < 10) {
-		m = "0" + m;
-	}
-	if (s < 10) {
-		s = "0" + s;
-	}
+
+	h = leading_zeroes(h, 2);
+	m = leading_zeroes(m, 2);
+	s = leading_zeroes(s, 2);
+
 	document.getElementById("txt_timer").innerHTML = h + ":" + m + ":" + s;
+}
+
+function leading_zeroes(num, len) {
+	num = num.toString();
+	while (num.length < len) num = "0" + num;
+	return num;
 }
 
 function request(a) {

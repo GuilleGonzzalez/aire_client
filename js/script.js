@@ -4,9 +4,6 @@ let temp_set = 20;
 let tmr = 0;
 let active_timer = false;
 
-document.getElementById('btn_settings').onclick = function (e) {
-	request("settings");
-}
 
 document.getElementById('btn_on').onclick = function (e) {
 	request("on");
@@ -16,7 +13,7 @@ document.getElementById('btn_off').onclick = function (e) {
 	request("off");
 }
 
-document.getElementById('btn_1').onclick = function (e) {
+document.getElementById('btn_auto').onclick = function (e) {
 	request("fauto");
 }
 
@@ -47,11 +44,13 @@ document.getElementById('btn_timer_p').onclick = function (e) {
 document.getElementById('btn_temp_set_m').onclick = function (e) {
 	temp_set--;
 	set_temp_set_text(temp_set);
+	request("d" + temp_set);
 }
 
 document.getElementById('btn_temp_set_p').onclick = function (e) {
 	temp_set++;
 	set_temp_set_text(temp_set);
+	request("d" + temp_set);
 }
 
 document.getElementById('btn_timer_start').onclick = function (e) {
@@ -59,6 +58,10 @@ document.getElementById('btn_timer_start').onclick = function (e) {
 		tmr = window.setInterval(update_timer, 1000);
 	}
 	active_timer = true;
+}
+
+document.getElementById('btn_settings').onclick = function (e) {
+	request("settings?all=true");
 }
 
 function update_timer() {
@@ -94,11 +97,22 @@ function leading_zeroes(num, len) {
 	return num;
 }
 
+let response;
+
 function request(a) {
 	fetch(aire_base_url + a, {})
 		.then(
 			response => response.text()
 		).then(
-			text => console.log(text)
+			(text) => {
+				id = text.split(",")[0];
+				if (id == 1) {
+					status = text.split(",")[1];
+					temp = text.split(",")[2];
+					txt_temp.innerHTML = temp;
+				} else {
+					txt_settings.innerHTML = text;
+				}
+			}
 		);
 }

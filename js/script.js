@@ -4,6 +4,10 @@ let temp_set = 20;
 let tmr = 0;
 let active_timer = false;
 
+document.getElementById('btn_settings').onclick = function (e) {
+	request("settings");
+}
+
 document.getElementById('btn_on').onclick = function (e) {
 	request("on");
 }
@@ -91,15 +95,7 @@ function leading_zeroes(num, len) {
 }
 
 function request(a) {
-	fetch(aire_base_url + a, {
-		method: 'POST',
-		headers: new Headers({
-			'Access-Control-Allow-Origin': '*',
-			'Access-Control-Max-Age': '600',
-			'Access-Control-Allow-Methods': 'PUT,POST,GET,OPTIONS',
-			'Access-Control-Allow-Headers': '*',
-		}),
-	})
+	fetch(aire_base_url + a, {})
 		.then(
 			response => response.text()
 		).then(

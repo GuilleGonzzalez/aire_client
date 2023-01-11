@@ -3,7 +3,12 @@ let timer = 0;
 let temp_set = 20;
 let tmr = 0;
 let active_timer = false;
+let timer_times = [0, 10, 60, 300, 600, 1200, 1800, 3600, 7200, 10800, 14400];
+let timer_curr = 0;
 
+document.addEventListener("DOMContentLoaded", function(){
+	request("update");
+});
 
 document.getElementById('btn_on').onclick = function (e) {
 	request("on");
@@ -30,14 +35,16 @@ document.getElementById('btn_3').onclick = function (e) {
 }
 
 document.getElementById('btn_timer_m').onclick = function (e) {
-	if (timer >= 10) {
-		timer -= 10;
+	if (timer_curr >= 1) {
+		timer = timer_times[--timer_curr];
 	}
 	set_timer_text(timer);
 }
 
 document.getElementById('btn_timer_p').onclick = function (e) {
-	timer += 10;
+	if (timer_curr < timer_times.length - 1) {
+		timer = timer_times[++timer_curr];
+	}
 	set_timer_text(timer);
 }
 
@@ -105,6 +112,7 @@ function request(a) {
 			response => response.text()
 		).then(
 			(text) => {
+				console.log(text);
 				id = text.split(",")[0];
 				if (id == 1) {
 					status = text.split(",")[1];
